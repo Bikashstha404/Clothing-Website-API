@@ -1,0 +1,15 @@
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\bin\Debug\net8.0\ClothingStoreApplication.deps.json
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\bin\Debug\net8.0\ClothingStoreApplication.runtimeconfig.json
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\bin\Debug\net8.0\ClothingStoreApplication.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\bin\Debug\net8.0\ClothingStoreApplication.pdb
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ClothingStoreApplication.csproj.AssemblyReference.cache
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ClothingStoreApplication.GeneratedMSBuildEditorConfig.editorconfig
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ClothingStoreApplication.AssemblyInfoInputs.cache
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ClothingStoreApplication.AssemblyInfo.cs
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ClothingStoreApplication.csproj.CoreCompileInputs.cache
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ClothingStoreApplication.sourcelink.json
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ClothingStoreApplication.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\refint\ClothingStoreApplication.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ClothingStoreApplication.pdb
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ClothingStoreApplication.genruntimeconfig.cache
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ref\ClothingStoreApplication.dll

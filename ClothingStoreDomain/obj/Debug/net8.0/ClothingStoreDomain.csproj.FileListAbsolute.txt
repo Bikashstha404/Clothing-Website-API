@@ -1,0 +1,15 @@
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\bin\Debug\net8.0\ClothingStoreDomain.deps.json
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\bin\Debug\net8.0\ClothingStoreDomain.runtimeconfig.json
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\bin\Debug\net8.0\ClothingStoreDomain.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\bin\Debug\net8.0\ClothingStoreDomain.pdb
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\obj\Debug\net8.0\ClothingStoreDomain.csproj.AssemblyReference.cache
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\obj\Debug\net8.0\ClothingStoreDomain.GeneratedMSBuildEditorConfig.editorconfig
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\obj\Debug\net8.0\ClothingStoreDomain.AssemblyInfoInputs.cache
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\obj\Debug\net8.0\ClothingStoreDomain.AssemblyInfo.cs
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\obj\Debug\net8.0\ClothingStoreDomain.csproj.CoreCompileInputs.cache
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\obj\Debug\net8.0\ClothingStoreDomain.sourcelink.json
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\obj\Debug\net8.0\ClothingStoreDomain.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\obj\Debug\net8.0\refint\ClothingStoreDomain.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\obj\Debug\net8.0\ClothingStoreDomain.pdb
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\obj\Debug\net8.0\ClothingStoreDomain.genruntimeconfig.cache
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreDomain\obj\Debug\net8.0\ref\ClothingStoreDomain.dll
