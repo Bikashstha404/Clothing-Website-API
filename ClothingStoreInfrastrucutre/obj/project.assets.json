@@ -1598,6 +1598,21 @@
           }
         }
       },
+      "ClothingStoreApplication/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "ClothingStoreDomain": "1.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "compile": {
+          "bin/placeholder/ClothingStoreApplication.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ClothingStoreApplication.dll": {}
+        }
+      },
       "ClothingStoreDomain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -4327,6 +4342,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "ClothingStoreApplication/1.0.0": {
+      "type": "project",
+      "path": "../ClothingStoreApplication/ClothingStoreApplication.csproj",
+      "msbuildProject": "../ClothingStoreApplication/ClothingStoreApplication.csproj"
+    },
     "ClothingStoreDomain/1.0.0": {
       "type": "project",
       "path": "../ClothingStoreDomain/ClothingStoreDomain.csproj",
@@ -4335,6 +4355,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "ClothingStoreApplication >= 1.0.0",
       "ClothingStoreDomain >= 1.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 8.0.6",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.6",
@@ -4370,6 +4391,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "D:\\My Own Projects\\9. Clothing Store MVC\\Clothing Store\\ClothingStoreApplication\\ClothingStoreApplication.csproj": {
+              "projectPath": "D:\\My Own Projects\\9. Clothing Store MVC\\Clothing Store\\ClothingStoreApplication\\ClothingStoreApplication.csproj"
+            },
             "D:\\My Own Projects\\9. Clothing Store MVC\\Clothing Store\\ClothingStoreDomain\\ClothingStoreDomain.csproj": {
               "projectPath": "D:\\My Own Projects\\9. Clothing Store MVC\\Clothing Store\\ClothingStoreDomain\\ClothingStoreDomain.csproj"
             }
