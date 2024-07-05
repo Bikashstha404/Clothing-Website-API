@@ -13,3 +13,6 @@ D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ClothingStoreApplication.pdb
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ClothingStoreApplication.genruntimeconfig.cache
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\ref\ClothingStoreApplication.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\bin\Debug\net8.0\ClothingStoreDomain.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\bin\Debug\net8.0\ClothingStoreDomain.pdb
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreApplication\obj\Debug\net8.0\Clothing.F4FD5068.Up2Date

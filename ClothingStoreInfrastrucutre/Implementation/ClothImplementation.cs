@@ -17,11 +17,11 @@ namespace ClothingStoreInfrastrucutre.Implementation
         {
             _dbContext = dbContext;
         }
-        public Cloth AddCloth(Cloth cloth)
+        public bool AddCloth(Cloth cloth)
         {
             _dbContext.Add(cloth);
             _dbContext.SaveChanges();
-            return cloth;
+            return true;
         }
 
         public List<Cloth> GetAllCloth()

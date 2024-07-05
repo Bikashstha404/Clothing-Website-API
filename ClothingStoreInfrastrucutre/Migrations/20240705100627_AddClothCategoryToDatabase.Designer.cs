@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClothingStoreInfrastrucutre.Migrations
 {
     [DbContext(typeof(ClothDbContext))]
-    [Migration("20240703163657_AddClothCategoryToDatabase")]
+    [Migration("20240705100627_AddClothCategoryToDatabase")]
     partial class AddClothCategoryToDatabase
     {
         /// <inheritdoc />

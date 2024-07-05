@@ -16,3 +16,5 @@ D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreInfrastrucu
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreInfrastrucutre\obj\Debug\net8.0\ClothingStoreInfrastrucutre.pdb
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreInfrastrucutre\obj\Debug\net8.0\ClothingStoreInfrastrucutre.genruntimeconfig.cache
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreInfrastrucutre\obj\Debug\net8.0\ref\ClothingStoreInfrastrucutre.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreInfrastrucutre\bin\Debug\net8.0\ClothingStoreApplication.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreInfrastrucutre\bin\Debug\net8.0\ClothingStoreApplication.pdb

@@ -9,7 +9,7 @@ namespace ClothingStoreApplication.Interface
 {
     public interface ICloth
     {
-        Cloth AddCloth(Cloth cloth);
+        bool AddCloth(Cloth cloth);
 
         List<Cloth> GetAllCloth();
 

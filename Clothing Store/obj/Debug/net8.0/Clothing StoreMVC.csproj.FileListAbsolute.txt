@@ -136,3 +136,15 @@ D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\obj\Debug
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\obj\Debug\net8.0\Clothing StoreMVC.pdb
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\obj\Debug\net8.0\Clothing StoreMVC.genruntimeconfig.cache
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\obj\Debug\net8.0\ref\Clothing StoreMVC.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\bin\Debug\net8.0\ClothingStoreApplication.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\bin\Debug\net8.0\ClothingStoreDomain.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\bin\Debug\net8.0\ClothingStoreApplication.pdb
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\bin\Debug\net8.0\ClothingStoreDomain.pdb
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\bin\Debug\net8.0\ClothingStoreInfrastrucutre.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\Clothing Store\bin\Debug\net8.0\ClothingStoreInfrastrucutre.pdb

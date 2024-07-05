@@ -1,7 +1,16 @@
+using ClothingStoreApplication.Interface;
+using ClothingStoreInfrastrucutre.Data;
+using ClothingStoreInfrastrucutre.Implementation;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ClothDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("ClothString")));
+
+builder.Services.AddScoped<ICloth, ClothImplementation>();
 
 var app = builder.Build();
 

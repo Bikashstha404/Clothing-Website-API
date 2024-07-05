@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ClothingStoreApplication\ClothingStoreApplication.csproj" />
     <ProjectReference Include="..\ClothingStoreDomain\ClothingStoreDomain.csproj" />
   </ItemGroup>
 
