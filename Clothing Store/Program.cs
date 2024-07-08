@@ -1,3 +1,4 @@
+using Clothing_Store.Mapper;
 using ClothingStoreApplication.Interface;
 using ClothingStoreInfrastrucutre.Data;
 using ClothingStoreInfrastrucutre.Implementation;
@@ -11,6 +12,7 @@ builder.Services.AddDbContext<ClothDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("ClothString")));
 
 builder.Services.AddScoped<ICloth, ClothImplementation>();
+builder.Services.AddScoped<IClothMapper, ClothMapper>();
 
 var app = builder.Build();
 

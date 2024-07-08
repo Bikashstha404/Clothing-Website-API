@@ -20,6 +20,7 @@ namespace Clothing_Store.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            ViewBag.Message = "Welcome to Add Cloth Page";
             return View();
         }
 
@@ -28,6 +29,7 @@ namespace Clothing_Store.Controllers
         {
             var cloth = _iClothMapper.AddCloth(addClothViewModel);
             var result = _iCloth.AddCloth(cloth);
+            ViewBag.Message = "Cloth added successfully";
             return View();
         }
     }
