@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClothingStoreDomain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+11c32937ce09392d2ebbea1d6227a73209cc2e2d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f661e5e2e25a44b2ad7356b52242bd5872ca284")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClothingStoreDomain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClothingStoreDomain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
