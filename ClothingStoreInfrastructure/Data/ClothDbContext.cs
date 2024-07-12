@@ -16,6 +16,6 @@ namespace ClothingStoreInfrastructure.Data
         {
 
         }
-        public DbSet<SignUp> SignUp { get; set; }
+        //public DbSet<SignUp> SignUp { get; set; }
     }
 }

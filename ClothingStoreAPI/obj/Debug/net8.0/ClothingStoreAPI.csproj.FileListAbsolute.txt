@@ -148,3 +148,6 @@ D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Deb
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\ClothingStoreApplication.pdb
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\ClothingStoreDomain.pdb
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\ClothingStoreInfrastructure.pdb
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\ClothingStoreAPI.staticwebassets.runtime.json
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll

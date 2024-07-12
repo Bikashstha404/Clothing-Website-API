@@ -9,6 +9,8 @@ namespace ClothingStoreApplication.Interface
 {
     public interface ISignUp
     {
-        bool SignUp(SignUp signUp);
+        Task<bool> SignUp(SignUp signUp);
+
+        Task<bool> Login(string email, string password);
     }
 }

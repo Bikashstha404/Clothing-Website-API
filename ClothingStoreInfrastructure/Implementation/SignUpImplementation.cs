@@ -19,25 +19,55 @@ namespace ClothingStoreInfrastructure.Implementation
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
-        public async bool SignUp(SignUp signUp)
+
+        public async Task<bool> Login(string email, string password)
+        {
+            var userData = await userManager.FindByEmailAsync(email);
+            if (userData == null) 
+            {
+                return false;
+            }
+            var user = await signInManager.PasswordSignInAsync(userData.UserName, password, false, false);
+            if (user.Succeeded) 
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> SignUp(SignUp signUp)
         {
             var existingUser = await userManager.FindByEmailAsync(signUp.Email);
             if(existingUser != null)
             {
                 return false;
             }
-            if(signUp.ConfirmPassword == signUp.Password)
+            if(signUp.ConfirmPassword != signUp.Password)
             {
                 return false;
             }
+            
             IdentityUser user = new IdentityUser
             {
                 UserName = signUp.Name,
                 Email = signUp.Email,
                 PasswordHash = signUp.Password,
-
             };
-            return true;
+
+            var result = await userManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+
+       
     }
 }
