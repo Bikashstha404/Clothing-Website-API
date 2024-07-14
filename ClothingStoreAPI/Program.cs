@@ -1,4 +1,6 @@
+using ClothingStoreAPI.Mapper;
 using ClothingStoreApplication.Interface;
+using ClothingStoreDomain;
 using ClothingStoreInfrastructure.Data;
 using ClothingStoreInfrastructure.Implementation;
 using Microsoft.AspNetCore.Identity;
@@ -16,11 +18,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ClothDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("ClothString")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>()
+builder.Services.AddDefaultIdentity<ApplicationUser>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ClothDbContext>();
 
-builder.Services.AddScoped<ISignUp, SignUpImplementation>();
+builder.Services.AddScoped<IAuth, AuthImplementation>();
+builder.Services.AddScoped<IAuthMapper, AuthMapper>();
 
 var app = builder.Build();
 

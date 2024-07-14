@@ -11,6 +11,7 @@
           "ClothingStoreApplication": "1.0.0",
           "ClothingStoreDomain": "1.0.0",
           "ClothingStoreInfrastructure": "1.0.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.7",
           "Microsoft.AspNetCore.Identity.UI": "8.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.7",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.7",
@@ -196,6 +197,17 @@
             "assemblyVersion": "8.0.7.0",
             "fileVersion": "8.0.724.31402"
           }
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.Abstractions/2.2.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Routing.Abstractions": "2.2.0",
+          "Microsoft.Net.Http.Headers": "2.2.0"
+        }
+      },
+      "Microsoft.AspNetCore.Routing.Abstractions/2.2.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0"
         }
       },
       "Microsoft.AspNetCore.WebUtilities/2.2.0": {
@@ -1147,7 +1159,9 @@
       "ClothingStoreApplication/1.0.0": {
         "dependencies": {
           "ClothingStoreDomain": "1.0.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.7",
           "Microsoft.AspNetCore.Identity.UI": "8.0.7",
+          "Microsoft.AspNetCore.Mvc.Abstractions": "2.2.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.7"
         },
         "runtime": {
@@ -1156,6 +1170,7 @@
       },
       "ClothingStoreDomain/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.7",
           "Microsoft.AspNetCore.Identity.UI": "8.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.7"
         },
@@ -1323,6 +1338,20 @@
       "sha512": "sha512-8wyFN3Vd6TAXWY0UT7BDpV+xjkVWFcMzoNCx544vuBWdVsBklwFgthH+oAw6fNQIrtt84XOM8nHpqibi+H6xYw==",
       "path": "microsoft.aspnetcore.identity.ui/8.0.7",
       "hashPath": "microsoft.aspnetcore.identity.ui.8.0.7.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Mvc.Abstractions/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ET6uZpfVbGR1NjCuLaLy197cQ3qZUjzl7EG5SL4GfJH/c9KRE89MMBrQegqWsh0w1iRUB/zQaK0anAjxa/pz4g==",
+      "path": "microsoft.aspnetcore.mvc.abstractions/2.2.0",
+      "hashPath": "microsoft.aspnetcore.mvc.abstractions.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Routing.Abstractions/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lRRaPN7jDlUCVCp9i0W+PB0trFaKB0bgMJD7hEJS9Uo4R9MXaMC8X2tJhPLmeVE3SGDdYI4QNKdVmhNvMJGgPQ==",
+      "path": "microsoft.aspnetcore.routing.abstractions/2.2.0",
+      "hashPath": "microsoft.aspnetcore.routing.abstractions.2.2.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.WebUtilities/2.2.0": {
       "type": "package",

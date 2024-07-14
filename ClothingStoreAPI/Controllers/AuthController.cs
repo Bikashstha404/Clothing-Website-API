@@ -1,8 +1,7 @@
-﻿using ClothingStoreAPI.ViewModels.AuthVM;
+﻿using ClothingStoreAPI.Mapper;
+using ClothingStoreAPI.ViewModels;
 using ClothingStoreApplication.Interface;
 using ClothingStoreDomain;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClothingStoreAPI.Controllers
@@ -11,45 +10,44 @@ namespace ClothingStoreAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly ISignUp iSignUp;
+        private readonly IAuth iAuth;
+        private readonly IAuthMapper iAuthMapper;
 
-        public AuthController(ISignUp iSignUp)
+        public AuthController(IAuth iAuth, IAuthMapper iAuthMapper)
         {
-            this.iSignUp = iSignUp;
+            this.iAuth = iAuth;
+            this.iAuthMapper = iAuthMapper;
         }
 
         [HttpPost("SignUp")]
-        public async Task<IActionResult> SignUp([FromForm] SignUpVM signUp)
+        public async Task<IActionResult> SignUp(SignUpVM signUp)
         {
-            SignUp signUpData = new SignUp
+            SignUp signUpData = iAuthMapper.Register(signUp);
+            Task<string> messageTask = iAuth.SignUp(signUpData);
+            string message = await messageTask;
+            if (message == "Registration Successful")
             {
-                Name = signUp.Name,
-                Email = signUp.Email,
-                Password = signUp.Password,
-                ConfirmPassword = signUp.ConfirmPassword,
-            };
-            var result = await iSignUp.SignUp(signUpData);
-            if (result)
-            {
-                return Ok(new { Message = "User Created Succesfully." });
+                return Ok(new { Message = "Registration Successful" + signUpData });
             }
             else
             {
-                return BadRequest(new { Message = "Problem Occured during user creation" });
+                return BadRequest(new { Message = message });
             }
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromForm] LoginVM login)
+        public async Task<IActionResult> Login(LoginVM login)
         {
-            var result = await iSignUp.Login(login.Email, login.Password);
-            if (result)
+            Login loginData = iAuthMapper.Login(login);
+            Task<string> messageTask = iAuth.Login(loginData);
+            string message = await messageTask;
+            if(message == "Login Failed")
             {
-                return Ok(new { Message = "Login Successful." });
+                return BadRequest(new { Message = message });
             }
             else
             {
-                return BadRequest(new { Message = "Login Failed" });
+                return Ok(new { Message = message });
             }
         }
     }
