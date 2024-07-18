@@ -3,6 +3,11 @@ using ClothingStoreDomain;
 using ClothingStoreInfrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace ClothingStoreInfrastructure.Implementation
 {
@@ -10,11 +15,13 @@ namespace ClothingStoreInfrastructure.Implementation
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IConfiguration configuration;
 
-        public AuthImplementation(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AuthImplementation(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.configuration = configuration;
         }
 
         public async Task<string> SignUp(SignUp signUp)
@@ -57,7 +64,28 @@ namespace ClothingStoreInfrastructure.Implementation
             var user = await signInManager.PasswordSignInAsync(userData.UserName, login.Password, false, false);
             if (user.Succeeded)
             {
-                return "Name: " + userData.UserName + " Gender: " + userData.Gender.ToString();
+                var authorizationClaims = new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, configuration["Jwt:Subject"]),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim("UserId", userData.Id.ToString()),
+                    new Claim("Email", userData.Email.ToString()),
+                    new Claim("UserName", userData.UserName.ToString()),
+                    new Claim("Gender", userData.Gender.ToString()),
+                };
+
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
+                var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                var token = new JwtSecurityToken(
+                        issuer: configuration["Jwt:Issuer"],
+                        audience: configuration["Jwt:Audience"],
+                        claims: authorizationClaims,
+                        expires: DateTime.UtcNow.AddMinutes(60),
+                        signingCredentials: signIn
+                    );
+
+                string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
+                return User: "userData" + Token: " + tokenValue;
             }
             else
             {

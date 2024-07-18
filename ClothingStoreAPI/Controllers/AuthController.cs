@@ -2,6 +2,7 @@
 using ClothingStoreAPI.ViewModels;
 using ClothingStoreApplication.Interface;
 using ClothingStoreDomain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClothingStoreAPI.Controllers
@@ -27,7 +28,7 @@ namespace ClothingStoreAPI.Controllers
             string message = await messageTask;
             if (message == "Registration Successful")
             {
-                return Ok(new { Message = "Registration Successful" + signUpData });
+                return Ok(new { Message = "Registration Successful"});
             }
             else
             {
@@ -41,7 +42,7 @@ namespace ClothingStoreAPI.Controllers
             Login loginData = iAuthMapper.Login(login);
             Task<string> messageTask = iAuth.Login(loginData);
             string message = await messageTask;
-            if(message == "Login Failed")
+            if(message == "Login Failed" || message == "No User found with this email address.")
             {
                 return BadRequest(new { Message = message });
             }
@@ -49,6 +50,12 @@ namespace ClothingStoreAPI.Controllers
             {
                 return Ok(new { Message = message });
             }
+        }
+
+        [Authorize]
+        [HttpGet("Hello")]
+        public IActionResult Test() {
+            return Ok("Hello sir you token is verified");
         }
     }
 }

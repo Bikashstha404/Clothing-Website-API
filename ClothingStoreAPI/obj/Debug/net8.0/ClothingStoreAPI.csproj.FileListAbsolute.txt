@@ -151,3 +151,4 @@ D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\obj\Deb
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\ClothingStoreAPI.staticwebassets.runtime.json
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
