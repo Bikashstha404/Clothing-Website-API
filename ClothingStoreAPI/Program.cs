@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
     {
-        Title = "AuthDemo",
+        Title = "Clothing Store API",
         Version = "v1"
     });
 
@@ -34,8 +34,7 @@ builder.Services.AddSwaggerGen(options =>
         Name = "Authorization",
         Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
         BearerFormat = "JWT",
-        Scheme = "bearer"
-
+        Scheme = "Bearer"
     });
 
     options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
@@ -49,7 +48,7 @@ builder.Services.AddSwaggerGen(options =>
                     Id = "Bearer"
                 }
             },
-            []
+            new string[]{}
         }
     });
 });
@@ -59,7 +58,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddDbContext<ClothDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("ClothString")));
 
-builder.Services.AddDefaultIdentity<ApplicationUser>()
+//builder.Services.AddDefaultIdentity<ApplicationUser>()
+builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ClothDbContext>();
 
@@ -72,7 +72,7 @@ builder.Services.AddAuthentication(auth =>
     auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; // Handle the cases while accesssing data without being authenticated
 }).AddJwtBearer(options =>
 {
-    //options.RequireHttpsMetadata = false; // doesn't require secure connection
+    options.RequireHttpsMetadata = false; // doesn't require secure connection
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
@@ -93,6 +93,8 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.MapIdentityApi<ApplicationUser>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -102,8 +104,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 
 app.UseCors("AllowOrigin");

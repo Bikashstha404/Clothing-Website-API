@@ -51,11 +51,5 @@ namespace ClothingStoreAPI.Controllers
                 return Ok(new { Message = message });
             }
         }
-
-        [Authorize]
-        [HttpGet("Hello")]
-        public IActionResult Test() {
-            return Ok("Hello sir you token is verified");
-        }
     }
 }

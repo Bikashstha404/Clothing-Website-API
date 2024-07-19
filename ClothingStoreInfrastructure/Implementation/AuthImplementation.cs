@@ -64,28 +64,10 @@ namespace ClothingStoreInfrastructure.Implementation
             var user = await signInManager.PasswordSignInAsync(userData.UserName, login.Password, false, false);
             if (user.Succeeded)
             {
-                var authorizationClaims = new[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Sub, configuration["Jwt:Subject"]),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim("UserId", userData.Id.ToString()),
-                    new Claim("Email", userData.Email.ToString()),
-                    new Claim("UserName", userData.UserName.ToString()),
-                    new Claim("Gender", userData.Gender.ToString()),
-                };
+                JwtToken jwt = new JwtToken(configuration);
+                var tokenValue = jwt.CreateToken(userData);
 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
-                var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                var token = new JwtSecurityToken(
-                        issuer: configuration["Jwt:Issuer"],
-                        audience: configuration["Jwt:Audience"],
-                        claims: authorizationClaims,
-                        expires: DateTime.UtcNow.AddMinutes(60),
-                        signingCredentials: signIn
-                    );
-
-                string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
-                return User: "userData" + Token: " + tokenValue;
+                return "User: " + userData + ", Token: " + tokenValue;
             }
             else
             {
