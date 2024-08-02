@@ -27,9 +27,14 @@ namespace ClothingStoreInfrastructure.Implementation
         public async Task<string> SignUp(SignUp signUp)
         {
             var userData = await userManager.FindByEmailAsync(signUp.Email);
+            var username = await userManager.FindByNameAsync(signUp.Name);
             if (userData != null)
             {
                 return "A user with this email already exist";
+            }
+            if (username != null)
+            {
+                return "Username already exist.";
             }
             if (signUp.Password != signUp.ConfirmPassword)
             {
@@ -46,11 +51,26 @@ namespace ClothingStoreInfrastructure.Implementation
             var result = await userManager.CreateAsync(user, signUp.Password);
             if (result.Succeeded)
             {
-                return "Registration Successful";
+                if(signUp.Email == configuration["AdminEmail"])
+                {
+                    var adminExists = await userManager.GetUsersInRoleAsync("Admin");
+                    if (adminExists.Any())
+                    {
+                        return "An Admin already exists";
+                    }
+                    else
+                    {
+                        await userManager.AddToRoleAsync(user, "Admin");
+                        return "An Admin created successfully";
+                    }
+                }
+
+                await userManager.AddToRoleAsync(user, "User");
+                return "User Registration Successful";
             }
             else
             {
-                return "Error Occured During Registration";
+                return $"Registration failed: {string.Join(", ", result.Errors.Select(e => e.Description))}";
             }
         }
 
@@ -67,11 +87,11 @@ namespace ClothingStoreInfrastructure.Implementation
                 JwtToken jwt = new JwtToken(configuration);
                 var tokenValue = jwt.CreateToken(userData);
 
-                return "User: " + userData + ", Token: " + tokenValue;
+                return tokenValue;
             }
             else
             {
-                return "Login Failed";
+                return "Incorrect Password.";
             }
         }
     }

@@ -65,6 +65,7 @@ builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
 
 builder.Services.AddScoped<IAuth, AuthImplementation>();
 builder.Services.AddScoped<IAuthMapper, AuthMapper>();
+builder.Services.AddScoped<IUser, UserImplementation>();
 
 builder.Services.AddAuthentication(auth =>
 {
@@ -83,6 +84,7 @@ builder.Services.AddAuthentication(auth =>
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding
         .UTF8.GetBytes(builder.Configuration["Jwt:Key"])), // Should match with security key given during creating jwt token
+        ClockSkew = TimeSpan.Zero
     };
 });
 
@@ -111,4 +113,16 @@ app.MapControllers();
 
 app.UseCors("AllowOrigin");
 
+using(var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var roles = new[] { "Admin","HR", "Employee", "User" };
+    foreach(var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}
 app.Run();

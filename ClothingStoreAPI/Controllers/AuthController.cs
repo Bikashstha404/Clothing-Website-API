@@ -26,9 +26,9 @@ namespace ClothingStoreAPI.Controllers
             SignUp signUpData = iAuthMapper.Register(signUp);
             Task<string> messageTask = iAuth.SignUp(signUpData);
             string message = await messageTask;
-            if (message == "Registration Successful")
+            if (message == "User Registration Successful" || message == "An Admin created successfully")
             {
-                return Ok(new { Message = "Registration Successful"});
+                return Ok(new { Message = message});
             }
             else
             {
@@ -42,13 +42,13 @@ namespace ClothingStoreAPI.Controllers
             Login loginData = iAuthMapper.Login(login);
             Task<string> messageTask = iAuth.Login(loginData);
             string message = await messageTask;
-            if(message == "Login Failed" || message == "No User found with this email address.")
+            if(message == "Incorrect Password." || message == "No User found with this email address.")
             {
                 return BadRequest(new { Message = message });
             }
             else
             {
-                return Ok(new { Message = message });
+                return Ok(new { Token = message });
             }
         }
     }

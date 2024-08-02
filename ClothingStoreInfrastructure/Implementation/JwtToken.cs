@@ -28,7 +28,7 @@ namespace ClothingStoreInfrastructure.Implementation
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim("UserId", userData.Id.ToString()),
                     new Claim("Email", userData.Email.ToString()),
-                    new Claim("UserName", userData.UserName.ToString()),
+                    new Claim("Name", userData.UserName.ToString()),
                     new Claim("Gender", userData.Gender.ToString()),
                 };
 
