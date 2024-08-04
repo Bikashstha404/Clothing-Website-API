@@ -19,10 +19,10 @@ namespace ClothingStoreInfrastructure.Implementation
         {
             this.configuration = configuration;
         }
-        public string CreateToken(ApplicationUser userData)
+        public string CreateToken(ApplicationUser userData, IList<string> roles)
         {
             
-            var authorizationClaims = new[]
+            var authorizationClaims = new List<Claim>
                  {
                     new Claim(JwtRegisteredClaimNames.Sub, configuration["Jwt:Subject"]),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
@@ -31,6 +31,10 @@ namespace ClothingStoreInfrastructure.Implementation
                     new Claim("Name", userData.UserName.ToString()),
                     new Claim("Gender", userData.Gender.ToString()),
                 };
+            foreach (var role in roles)
+            {
+                authorizationClaims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
             var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

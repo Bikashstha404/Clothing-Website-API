@@ -1,13 +1,14 @@
 ﻿using ClothingStoreApplication.Interface;
 using ClothingStoreDomain;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace ClothingStoreAPI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -19,7 +20,7 @@ namespace ClothingStoreAPI.Controllers
             this.iUser = iUser;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await iUser.GetAllUsers();
@@ -32,6 +33,5 @@ namespace ClothingStoreAPI.Controllers
 
             return Ok(userDtos);
         }
-
     }
 }

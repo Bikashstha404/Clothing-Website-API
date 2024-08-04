@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -64,7 +65,6 @@ namespace ClothingStoreInfrastructure.Implementation
                         return "An Admin created successfully";
                     }
                 }
-
                 await userManager.AddToRoleAsync(user, "User");
                 return "User Registration Successful";
             }
@@ -85,7 +85,8 @@ namespace ClothingStoreInfrastructure.Implementation
             if (user.Succeeded)
             {
                 JwtToken jwt = new JwtToken(configuration);
-                var tokenValue = jwt.CreateToken(userData);
+                var roles =await userManager.GetRolesAsync(userData);
+                var tokenValue = jwt.CreateToken(userData, roles);
 
                 return tokenValue;
             }
