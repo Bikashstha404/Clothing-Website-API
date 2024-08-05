@@ -28,12 +28,14 @@ namespace ClothingStoreInfrastructure.Implementation
             var applicationUsers = await userManager.Users.ToListAsync();
             foreach(var applicationUser in applicationUsers)
             {
+                var role = await userManager.GetRolesAsync(applicationUser);
                 User user = new User
                 {
                     Id = applicationUser.Id,
                     Name = applicationUser.UserName,
                     Email = applicationUser.Email,
-                    Gender = applicationUser.Gender
+                    Gender = applicationUser.Gender,
+                    Role = role.ToList()
                 };
                 users.Add(user);
             }

@@ -1,11 +1,12 @@
-﻿using ClothingStoreDomain;
+﻿using ClothingStoreApplication.Response;
+using ClothingStoreDomain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClothingStoreApplication.Interface
 {
     public interface IAuth
     {
-        Task<string> SignUp(SignUp signUp);
-        Task<string> Login(Login login);
+        Task<SignUpResponse> SignUp(SignUp signUp);
+        //Task<(string, string)> Login(Login login);
     }
 }

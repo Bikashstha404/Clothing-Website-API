@@ -8,7 +8,6 @@ using System.Security.Claims;
 
 namespace ClothingStoreAPI.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -28,7 +27,9 @@ namespace ClothingStoreAPI.Controllers
             {
                 Email = user.Email,
                 Name = user.Name,
-                Gender = ((Gender)user.Gender).ToString()
+                Gender = ((Gender)user.Gender).ToString(),
+                Role = user.Role
+
             }).ToList();
 
             return Ok(userDtos);
