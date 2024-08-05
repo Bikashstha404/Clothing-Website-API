@@ -104,27 +104,44 @@ namespace ClothingStoreInfrastructure.Implementation
             }
         }
 
-        //public async Task<(string, string, string)> Login(Login login)
-        //{
-        //    var userData = await userManager.FindByEmailAsync(login.Email);
-        //    if (userData == null)
-        //    {
-        //        return (null, null, "No User found with this email address.");
-        //    }
-        //    var user = await signInManager.PasswordSignInAsync(userData.UserName, login.Password, false, false);
-        //    if (user.Succeeded)
-        //    {
-        //        JwtToken jwt = new JwtToken(configuration, clothDbContext);
-        //        var roles =await userManager.GetRolesAsync(userData);
-        //        var tokenValue = jwt.CreateToken(userData, roles);
-        //        var refreshToken = "hlw";
+        public async Task<LoginResponse> Login(Login login)
+        {
+            var userData = await userManager.FindByEmailAsync(login.Email);
+            if (userData == null)
+            {
+                return new LoginResponse
+                {
+                    Success = false,
+                    AccessToken = null,
+                    RefreshToken = null,
+                    Message = "No User found with this email address."
+                };
+            }
+            var user = await signInManager.PasswordSignInAsync(userData.UserName, login.Password, false, false);
+            if (user.Succeeded)
+            {
+                JwtToken jwt = new JwtToken(configuration, clothDbContext);
+                var roles = await userManager.GetRolesAsync(userData);
+                var tokenValue = jwt.CreateToken(userData, roles);
 
-        //        return (tokenValue, refreshToken, null);
-        //    }
-        //    else
-        //    {
-        //        return (null, null, "incorrect password.");
-        //    }
-        //}
+                return new LoginResponse
+                {
+                    Success = false,
+                    AccessToken = tokenValue,
+                    RefreshToken = null,
+                    Message = "Login Successfull"
+                };
+            }
+            else
+            {
+                return new LoginResponse
+                {
+                    Success = false,
+                    AccessToken = null,
+                    RefreshToken = null,
+                    Message = "Incorrect password."
+                };
+            }
+        }
     }
 }

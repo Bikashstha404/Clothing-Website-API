@@ -7,6 +7,6 @@ namespace ClothingStoreApplication.Interface
     public interface IAuth
     {
         Task<SignUpResponse> SignUp(SignUp signUp);
-        //Task<(string, string)> Login(Login login);
+        Task<LoginResponse> Login(Login login);
     }
 }

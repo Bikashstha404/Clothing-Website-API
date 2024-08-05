@@ -37,24 +37,23 @@ namespace ClothingStoreAPI.Controllers
             }
         }
 
-        //[HttpPost("Login")]
-        //public async Task<IActionResult> Login(LoginVM login)
-        //{
-        //    Login loginData = iAuthMapper.Login(login);
-        //    var (accessToken, refreshToken, message) = await iAuth.Login(loginData);
-        //    //string message = await messageTask;
-        //    if(message == "Incorrect Password." || message == "No User found with this email address.")
-        //    {
-        //        return BadRequest(new { Message = message });
-        //    }
-        //    else
-        //    {
-        //        return Ok(new TokenApiDto()
-        //        {
-        //            AccessToken = "",
-        //            RefreshToken = ""
-        //        });
-        //    }
-        //}
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginVM login)
+        {
+            Login loginData = iAuthMapper.Login(login);
+            LoginResponse response = await iAuth.Login(loginData);
+            if(response.Success)
+            {
+                return Ok(new TokenApiDto()
+                {
+                    AccessToken = "",
+                    RefreshToken = ""
+                });
+            }
+            else
+            {
+                return BadRequest(new { Message = response.Message });
+            }
+        }
     }
 }
