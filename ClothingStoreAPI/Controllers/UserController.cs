@@ -1,9 +1,14 @@
-﻿using ClothingStoreApplication.Interface;
+﻿using ClothingStoreAPI.Dtos;
+using ClothingStoreApplication.Interface;
 using ClothingStoreDomain;
+using ClothingStoreInfrastructure.Data;
+using ClothingStoreInfrastructure.Implementation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 
 namespace ClothingStoreAPI.Controllers
@@ -12,17 +17,18 @@ namespace ClothingStoreAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUser iUser;
+        private readonly IUser _iUser;
 
         public UserController(IUser iUser)
         {
-            this.iUser = iUser;
+            _iUser = iUser;
         }
 
+        [Authorize]
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await iUser.GetAllUsers();
+            var users = await _iUser.GetAllUsers();
             var userDtos = users.Select(user => new
             {
                 Email = user.Email,
@@ -34,5 +40,7 @@ namespace ClothingStoreAPI.Controllers
 
             return Ok(userDtos);
         }
+
+       
     }
 }

@@ -15,22 +15,21 @@ namespace ClothingStoreInfrastructure.Implementation
 {
     public class AuthImplementation : IAuth
     {
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly IConfiguration configuration;
-        private ClothDbContext clothDbContext;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IConfiguration _configuration;
 
-        public AuthImplementation(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration, ClothDbContext clothDbContext)
+        public AuthImplementation(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.configuration = configuration;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _configuration = configuration;
         }
 
         public async Task<SignUpResponse> SignUp(SignUp signUp)
         {
-            var userData = await userManager.FindByEmailAsync(signUp.Email);
-            var username = await userManager.FindByNameAsync(signUp.Name);
+            var userData = await _userManager.FindByEmailAsync(signUp.Email);
+            var username = await _userManager.FindByNameAsync(signUp.Name);
             if (userData != null)
             {
                 return new SignUpResponse
@@ -63,12 +62,12 @@ namespace ClothingStoreInfrastructure.Implementation
                 Email = signUp.Email,
             };
 
-            var result = await userManager.CreateAsync(user, signUp.Password);
+            var result = await _userManager.CreateAsync(user, signUp.Password);
             if (result.Succeeded)
             {
-                if(signUp.Email == configuration["AdminEmail"])
+                if(signUp.Email == _configuration["AdminEmail"])
                 {
-                    var adminExists = await userManager.GetUsersInRoleAsync("Admin");
+                    var adminExists = await _userManager.GetUsersInRoleAsync("Admin");
                     if (adminExists.Any())
                     {
                         return new SignUpResponse
@@ -79,7 +78,7 @@ namespace ClothingStoreInfrastructure.Implementation
                     }
                     else
                     {
-                        await userManager.AddToRoleAsync(user, "Admin");
+                        await _userManager.AddToRoleAsync(user, "Admin");
                         return new SignUpResponse
                         {
                             Success = true,
@@ -87,7 +86,7 @@ namespace ClothingStoreInfrastructure.Implementation
                         };
                     }
                 }
-                await userManager.AddToRoleAsync(user, "User");
+                await _userManager.AddToRoleAsync(user, "User");
                 return new SignUpResponse
                 {
                     Success = true,
@@ -106,7 +105,7 @@ namespace ClothingStoreInfrastructure.Implementation
 
         public async Task<LoginResponse> Login(Login login)
         {
-            var userData = await userManager.FindByEmailAsync(login.Email);
+            var userData = await _userManager.FindByEmailAsync(login.Email);
             if (userData == null)
             {
                 return new LoginResponse
@@ -117,20 +116,36 @@ namespace ClothingStoreInfrastructure.Implementation
                     Message = "No User found with this email address."
                 };
             }
-            var user = await signInManager.PasswordSignInAsync(userData.UserName, login.Password, false, false);
+            var user = await _signInManager.PasswordSignInAsync(userData.UserName, login.Password, false, false);
             if (user.Succeeded)
             {
-                JwtToken jwt = new JwtToken(configuration, clothDbContext);
-                var roles = await userManager.GetRolesAsync(userData);
-                var tokenValue = jwt.CreateToken(userData, roles);
+                JwtToken jwt = new JwtToken(_configuration, _userManager);
+                var accessToken = await jwt.CreateToken(userData);
+                var refreshToken = jwt.CreateRefreshToken();
+                userData.RefreshToken = refreshToken;
+                userData.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
+                var result = await _userManager.UpdateAsync(userData);
 
-                return new LoginResponse
+                if(result.Succeeded)
                 {
-                    Success = false,
-                    AccessToken = tokenValue,
-                    RefreshToken = null,
-                    Message = "Login Successfull"
-                };
+                    return new LoginResponse
+                    {
+                        Success = true,
+                        AccessToken = accessToken,
+                        RefreshToken = refreshToken,
+                        Message = "Login Successfull"
+                    };
+                }
+                else
+                {
+                    return new LoginResponse
+                    {
+                        Success = false,
+                        AccessToken = null,
+                        RefreshToken = null,
+                        Message = $"Error while updating Data. Error: {string.Join(", ", result.Errors.Select(e => e.Description))}",
+                    };
+                }
             }
             else
             {
@@ -140,6 +155,59 @@ namespace ClothingStoreInfrastructure.Implementation
                     AccessToken = null,
                     RefreshToken = null,
                     Message = "Incorrect password."
+                };
+            }
+        }
+
+        public async Task<LoginResponse> RefreshToken(string accessToken, string refreshToken)
+        {
+            JwtToken jwt = new JwtToken(_configuration, _userManager);
+            var principle = jwt.GetPrincipalFromExpiredtoken(accessToken);
+            var identity = principle.Identity as ClaimsIdentity;
+            string email = "";
+            if(identity != null)
+            {
+                var emailClaim = identity.Claims.FirstOrDefault(c => c.Type == "Email");
+                if(emailClaim != null)
+                {
+                    email = emailClaim.Value;
+                }
+            }
+
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+            {
+                return new LoginResponse
+                {
+                    Success = false,
+                    AccessToken = null,
+                    RefreshToken = null,
+                    Message = "Invalid Request."
+                };
+            }
+
+            var newAccessToken = await jwt.CreateToken(user);
+            var newRefreshToken = jwt.CreateRefreshToken();
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return new LoginResponse
+                {
+                    Success = true,
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken,
+                    Message = "Token Refreshed Successfully"
+                };
+            }
+            else
+            {
+                return new LoginResponse
+                {
+                    Success = false,
+                    AccessToken = null,
+                    RefreshToken = null,
+                    Message = $"Error while updating Data. Error: {string.Join(", ", result.Errors.Select(e => e.Description))}",
                 };
             }
         }

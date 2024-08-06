@@ -1,4 +1,5 @@
 ﻿using ClothingStoreInfrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -15,16 +16,17 @@ namespace ClothingStoreInfrastructure.Implementation
     public class JwtToken
     {
         private readonly IConfiguration _configuration;
-        private readonly ClothDbContext _clothDbContext;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public JwtToken(IConfiguration configuration, ClothDbContext clothDbContext)
+        public JwtToken(IConfiguration configuration, UserManager<ApplicationUser> userManager)
         {
             _configuration = configuration;
-            _clothDbContext = clothDbContext;
+            _userManager = userManager;
         }
-        public string CreateToken(ApplicationUser userData, IList<string> roles)
+        public async Task<string> CreateToken(ApplicationUser userData)
         {
-            
+            var roles = await _userManager.GetRolesAsync(userData);
+
             var authorizationClaims = new List<Claim>
                  {
                     new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
@@ -45,51 +47,51 @@ namespace ClothingStoreInfrastructure.Implementation
                     issuer: _configuration["Jwt:Issuer"],
                     audience: _configuration["Jwt:Audience"],
                     claims: authorizationClaims,
-                    expires: DateTime.UtcNow.AddMinutes(60),
+                    expires: DateTime.UtcNow.AddSeconds(10),
                     signingCredentials: signIn
                 );
 
-            string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
+            string accessToken = new JwtSecurityTokenHandler().WriteToken(token);
 
-            return tokenValue;
+            return accessToken;
         }
 
-        //public string CreateRefreshToken()
-        //{
-        //    string refreshToken;
-        //    do
-        //    {
-        //        var tokenBytes = RandomNumberGenerator.GetBytes(64);
-        //        refreshToken = Convert.ToBase64String(tokenBytes);
-        //    } while (_clothDbContext.Users.Any(a => a.RefreshToken == refreshToken));
+        public string CreateRefreshToken()
+        {
+            string refreshToken;
+            do
+            {
+                var tokenBytes = RandomNumberGenerator.GetBytes(64);
+                refreshToken = Convert.ToBase64String(tokenBytes);
+            } while (_userManager.Users.Any(a => a.RefreshToken == refreshToken));
 
-        //    return refreshToken;
-        //}
+            return refreshToken;
+        }
 
-        //public ClaimsPrincipal GetPrincipalFromExpiredtoken(string token)
-        //{
-        //    var tokenValidationParameters = new TokenValidationParameters
-        //    {
-        //        ValidateIssuer = true,
-        //        ValidateAudience = true,
-        //        ValidateLifetime = true,
-        //        ValidateIssuerSigningKey = true,
-        //        ValidIssuer = _configuration["Jwt:Issuer"],
-        //        ValidAudience = _configuration["Jwt:Audience"],
-        //        IssuerSigningKey = new SymmetricSecurityKey(Encoding
-        //        .UTF8.GetBytes(_configuration["Jwt:Key"])), // Should match with security key given during creating jwt token
-        //        ClockSkew = TimeSpan.Zero
-        //    };
+        public ClaimsPrincipal GetPrincipalFromExpiredtoken(string token)
+        {
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = false,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = _configuration["Jwt:Issuer"],
+                ValidAudience = _configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding
+                .UTF8.GetBytes(_configuration["Jwt:Key"])), // Should match with security key given during creating jwt token
+                ClockSkew = TimeSpan.Zero
+            };
 
-        //    var tokenHanlder = new JwtSecurityTokenHandler();
-        //    SecurityToken securityToken;
-        //    var principal = tokenHanlder.ValidateToken(token, tokenValidationParameters, out securityToken);
-        //    var jwtSecurityToken = securityToken as JwtSecurityToken;
-        //    if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-        //    {
-        //        throw new SecurityTokenException("This is invalid Token");
-        //    }
-        //    return principal;
-        //}
+            var tokenHanlder = new JwtSecurityTokenHandler();
+            SecurityToken securityToken;
+            var principal = tokenHanlder.ValidateToken(token, tokenValidationParameters, out securityToken);
+            var jwtSecurityToken = securityToken as JwtSecurityToken;
+            if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new SecurityTokenException("This is invalid Token");
+            }
+            return principal;
+        }
     }
 }

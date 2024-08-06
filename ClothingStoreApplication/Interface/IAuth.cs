@@ -8,5 +8,6 @@ namespace ClothingStoreApplication.Interface
     {
         Task<SignUpResponse> SignUp(SignUp signUp);
         Task<LoginResponse> Login(Login login);
+        Task<LoginResponse> RefreshToken(String accesstoken, String refreshToken);
     }
 }

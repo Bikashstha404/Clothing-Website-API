@@ -106,12 +106,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowOrigin");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.UseCors("AllowOrigin");
 
 using(var scope = app.Services.CreateScope())
 {
