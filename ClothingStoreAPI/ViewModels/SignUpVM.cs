@@ -1,4 +1,5 @@
-﻿using ClothingStoreDomain;
+﻿using ClothingStoreDomain.Entities;
+using ClothingStoreDomain.Enums;
 
 namespace ClothingStoreAPI.ViewModels
 {

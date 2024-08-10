@@ -3,11 +3,14 @@ using ClothingStoreAPI.Mapper;
 using ClothingStoreAPI.ViewModels;
 using ClothingStoreApplication.Interface;
 using ClothingStoreApplication.Response;
-using ClothingStoreDomain;
+using ClothingStoreDomain.Entities;
+using ClothingStoreDomain.Models;
+using ClothingStoreInfrastructure.Data;
 using ClothingStoreInfrastructure.Implementation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace ClothingStoreAPI.Controllers
@@ -16,13 +19,17 @@ namespace ClothingStoreAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IAuth iAuth;
         private readonly IAuthMapper iAuthMapper;
+        private readonly IEmailService iEmailService;
 
-        public AuthController(IAuth iAuth, IAuthMapper iAuthMapper)
+        public AuthController(UserManager<ApplicationUser> userManager, IAuth iAuth, IAuthMapper iAuthMapper, IEmailService iEmailService)
         {
+            this.userManager = userManager;
             this.iAuth = iAuth;
             this.iAuthMapper = iAuthMapper;
+            this.iEmailService = iEmailService;
         }
 
         [HttpPost("SignUp")]
@@ -55,7 +62,7 @@ namespace ClothingStoreAPI.Controllers
             }
             else
             {
-                return BadRequest(new { Message = response.Message });
+                return BadRequest(response.Message);
             }
         }
 
@@ -74,13 +81,55 @@ namespace ClothingStoreAPI.Controllers
             {
                 return Ok(new TokenApiDto
                 {
-                    AccessToken = accessToken,
-                    RefreshToken = refreshToken,
+                    AccessToken = response.AccessToken,
+                    RefreshToken = response.RefreshToken,
                 });
             }
             else
             {
                 return BadRequest(response.Message);    
+            }
+        }
+
+        [HttpPost("send-reset-email/{email}")]
+        public async Task<IActionResult> SendEmail(string email)
+        {
+            var response = await iAuth.SendEmailModel(email);
+            EmailModel emailModel;
+            if (response.Success)
+            {
+                emailModel = response.EmailModel;
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
+
+            iEmailService.SendEmail(emailModel);
+
+            return Ok(new
+            {
+                StatusCode = 200,
+                Message = "Email Sent!"
+            });
+
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel resetPasswordModel)
+        {
+            ResetPasswordResponse response = await iAuth.ResetPassword(resetPasswordModel);
+            if (response.Success)
+            {
+                return Ok(new
+                {
+                    StatusCode = 200,
+                    Message = "Password Reset Successfully."
+                });
+            }
+            else
+            {
+                return BadRequest(response.Message);
             }
         }
     }

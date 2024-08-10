@@ -1,5 +1,5 @@
 ﻿using ClothingStoreAPI.ViewModels;
-using ClothingStoreDomain;
+using ClothingStoreDomain.Entities;
 
 namespace ClothingStoreAPI.Mapper
 {

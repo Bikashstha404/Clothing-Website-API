@@ -1,5 +1,5 @@
 ﻿using ClothingStoreApplication.Interface;
-using ClothingStoreDomain;
+using ClothingStoreDomain.Models;
 using ClothingStoreInfrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -22,14 +22,14 @@ namespace ClothingStoreInfrastructure.Implementation
             this.userManager = userManager;
         }
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<UserModel>> GetAllUsers()
         {
-            var users = new List<User>();
+            var users = new List<UserModel>();
             var applicationUsers = await userManager.Users.ToListAsync();
             foreach(var applicationUser in applicationUsers)
             {
                 var role = await userManager.GetRolesAsync(applicationUser);
-                User user = new User
+                UserModel user = new UserModel
                 {
                     Id = applicationUser.Id,
                     Name = applicationUser.UserName,

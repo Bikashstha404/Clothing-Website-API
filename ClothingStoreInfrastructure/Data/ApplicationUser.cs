@@ -1,4 +1,4 @@
-﻿using ClothingStoreDomain;
+﻿using ClothingStoreDomain.Enums;
 using Microsoft.AspNetCore.Identity;
 
 namespace ClothingStoreInfrastructure.Data
@@ -8,5 +8,8 @@ namespace ClothingStoreInfrastructure.Data
         public Gender Gender { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }
+        public string? ResetPasswordToken { get; set; }
+        public DateTime? ResetPasswordExpiryTime { get; set; }
+
     }
 }

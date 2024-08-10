@@ -1,4 +1,4 @@
-﻿using ClothingStoreDomain;
+﻿using ClothingStoreDomain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,6 @@ namespace ClothingStoreApplication.Interface
 {
     public interface IUser
     {
-        Task<List<User>> GetAllUsers();
+        Task<List<UserModel>> GetAllUsers();
     }
 }

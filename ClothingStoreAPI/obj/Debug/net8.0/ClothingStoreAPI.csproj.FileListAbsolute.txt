@@ -131,7 +131,6 @@ D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\obj\Deb
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\obj\Debug\net8.0\ClothingStoreAPI.AssemblyInfoInputs.cache
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\obj\Debug\net8.0\ClothingStoreAPI.AssemblyInfo.cs
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\obj\Debug\net8.0\ClothingStoreAPI.csproj.CoreCompileInputs.cache
-D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\obj\Debug\net8.0\ClothingStoreAPI.MvcApplicationPartsAssemblyInfo.cs
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\obj\Debug\net8.0\ClothingStoreAPI.MvcApplicationPartsAssemblyInfo.cache
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\obj\Debug\net8.0\ClothingStoreAPI.sourcelink.json
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\obj\Debug\net8.0\staticwebassets.build.json
@@ -152,3 +151,9 @@ D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Deb
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
 D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\MailKit.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\Microsoft.AspNet.Identity.Core.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\MimeKit.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\NETCore.MailKit.dll
+D:\My Own Projects\9. Clothing Store MVC\Clothing Store\ClothingStoreAPI\bin\Debug\net8.0\System.Formats.Asn1.dll

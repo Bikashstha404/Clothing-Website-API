@@ -1,8 +1,10 @@
 ﻿using ClothingStoreAPI.Dtos;
 using ClothingStoreApplication.Interface;
-using ClothingStoreDomain;
+using ClothingStoreDomain.Entities;
+using ClothingStoreDomain.Enums;
 using ClothingStoreInfrastructure.Data;
 using ClothingStoreInfrastructure.Implementation;
+using ClothingStoreInfrastructure.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +17,8 @@ namespace ClothingStoreAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
+    [HasPermission(Permission.AccessMember)]
     public class UserController : ControllerBase
     {
         private readonly IUser _iUser;
@@ -24,7 +28,8 @@ namespace ClothingStoreAPI.Controllers
             _iUser = iUser;
         }
 
-        [Authorize]
+        //[Authorize(Roles ="Admin")]
+        [HasPermission(Permission.ReadMember)]
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {

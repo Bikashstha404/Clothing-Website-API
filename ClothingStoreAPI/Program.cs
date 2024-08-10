@@ -66,6 +66,7 @@ builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
 builder.Services.AddScoped<IAuth, AuthImplementation>();
 builder.Services.AddScoped<IAuthMapper, AuthMapper>();
 builder.Services.AddScoped<IUser, UserImplementation>();
+builder.Services.AddScoped<IEmailService,  EmailServiceImplementation>();
 
 builder.Services.AddAuthentication(auth =>
 {

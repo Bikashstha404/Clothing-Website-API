@@ -1,7 +1,9 @@
 ﻿using ClothingStoreApplication.Interface;
 using ClothingStoreApplication.Response;
-using ClothingStoreDomain;
+using ClothingStoreDomain.Entities;
+using ClothingStoreDomain.Models;
 using ClothingStoreInfrastructure.Data;
+using ClothingStoreInfrastructure.Helper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +11,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
+
 
 namespace ClothingStoreInfrastructure.Implementation
 {
@@ -195,8 +199,8 @@ namespace ClothingStoreInfrastructure.Implementation
                 return new LoginResponse
                 {
                     Success = true,
-                    AccessToken = accessToken,
-                    RefreshToken = refreshToken,
+                    AccessToken = newAccessToken,
+                    RefreshToken = newRefreshToken,
                     Message = "Token Refreshed Successfully"
                 };
             }
@@ -208,6 +212,83 @@ namespace ClothingStoreInfrastructure.Implementation
                     AccessToken = null,
                     RefreshToken = null,
                     Message = $"Error while updating Data. Error: {string.Join(", ", result.Errors.Select(e => e.Description))}",
+                };
+            }
+        }
+
+        public async Task<SendEmailResponse> SendEmailModel(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if(user == null) 
+            {
+                return new SendEmailResponse
+                {
+                    Success = false,
+                    EmailModel = null,
+                    Message = "Email doesn't exist"
+                };
+            }
+
+            var tokenBytes = RandomNumberGenerator.GetBytes(64);
+            var emailToken = Convert.ToBase64String(tokenBytes);
+            user.ResetPasswordToken = emailToken;
+            user.ResetPasswordExpiryTime = DateTime.Now.AddMinutes(10);
+
+            var result = await _userManager.UpdateAsync(user);
+            string from = _configuration["EmailSettings:From"];
+            var emailModel = new EmailModel(email, "Reset Passsword", EmailBody.EmailStringBody(email, emailToken));
+
+            return new SendEmailResponse
+            {
+                Success = true,
+                EmailModel = emailModel,
+                Message = "Email Model Sent Succesfully"
+            };
+        }
+
+        public async Task<ResetPasswordResponse> ResetPassword(ResetPasswordModel resetPasswordModel)
+        {
+            var newToken = resetPasswordModel.EmailToken.Replace("+", "");
+            var user = await _userManager.FindByEmailAsync(resetPasswordModel.Email);
+
+            if (user is null)
+            {
+                return new ResetPasswordResponse
+                {
+                    Success = false,
+                    Message = "User with this email doesn't exist."
+                };
+            }
+
+            var tokenCode = user.ResetPasswordToken;
+            var emailTokenExpiry = user.ResetPasswordExpiryTime;
+            if(tokenCode != resetPasswordModel.EmailToken || emailTokenExpiry< DateTime.Now)
+            {
+                return new ResetPasswordResponse
+                {
+                    Success = false,
+                    Message = "Token is either wrong or expired."
+                };
+            }
+
+            var passwordHasher = new PasswordHasher<ApplicationUser>();
+            user.PasswordHash = passwordHasher.HashPassword(user, resetPasswordModel.NewPassword);
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return new ResetPasswordResponse
+                {
+                    Success = true,
+                    Message = "Password Changed Succesfully"
+                };
+            }
+            else
+            {
+                return new ResetPasswordResponse
+                {
+                    Success = false,
+                    Message = "Error occurend during changing password."
                 };
             }
         }
